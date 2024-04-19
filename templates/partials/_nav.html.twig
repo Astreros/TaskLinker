@@ -1,0 +1,17 @@
+<nav>
+    <a href="{{ url('home.show') }}" id="logo">
+        <img src="{{ asset('icons/logo.png') }}" alt="Logo TaskLinker" />
+    </a>
+    <ul id="main-menu">
+        <li class="{{ app.current_route starts with 'project.' ? 'active' : ''}}">
+            <a href="{{ url('home.show') }}">
+                <i class="fa-solid fa-list-check"></i> Projets
+            </a>
+        </li>
+        <li class="{{ app.current_route starts with 'team.' ? 'active' : ''}}">
+            <a href="{{ url('team.show') }}">
+                <i class="fa-regular fa-user"></i> Équipe
+            </a>
+        </li>
+    </ul>
+</nav>
