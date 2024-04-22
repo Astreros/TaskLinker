@@ -20,7 +20,7 @@ class TeamController extends AbstractController
     public function editTeam(int $id): Response
     {
         return $this->render('team/edit.html.twig', [
-            'pageName' => 'Modifier une équipe'
+            'pageName' => 'Modifier'
         ]);
     }
 }
