@@ -13,30 +13,72 @@
             </tr>
             </thead>
             <tbody>
-            {% for employee in employees %}
-                <tr>
-                    <td>
-                        <div class="employee-infos">
-                            <div class="employee-avatar">
-                                {{ employee.name|slice(0, 1)|capitalize }}{{ employee.firstName|slice(0, 1)|capitalize }}
-                            </div>
-                            <div class="employee-coords">
-                                <strong>{{ employee.name }} {{ employee.firstName }}</strong>
-                                <span>{{ employee.email }}</span>
-                            </div>
+            <tr>
+                <td>
+                    <div class="employee-infos">
+                        <div class="employee-avatar">
+                            ND
                         </div>
-                    </td>
-                    <td>{{ employee.contractType }}</td>
-                    <td>
-                        <a class="button button-edit-team" href="{{ url('team.edit', {id: employee.id}) }}">
-                            Éditer
-                        </a>
-                        <a class="delete-team" href="#">
-                            Supprimer
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
+                        <div class="employee-coords">
+                            <strong>Natalie Dillon</strong>
+                            <span>natalie@driblet.com</span>
+                        </div>
+                    </div>
+                </td>
+                <td>CDI</td>
+                <td>
+                    <a class="button button-edit-team" href="{{ url('team.edit', {id: '1'}) }}">
+                        Éditer
+                    </a>
+                    <a class="delete-team" href="#">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="employee-infos">
+                        <div class="employee-avatar">
+                            DB
+                        </div>
+                        <div class="employee-coords">
+                            <strong>Demi Baker</strong>
+                            <span>demi@driblet.com</span>
+                        </div>
+                    </div>
+                </td>
+                <td>CDD</td>
+                <td>
+                    <a class="button button-edit-team" href="{{ url('team.edit', {id: '2'}) }}">
+                        Éditer
+                    </a>
+                    <a class="delete-team" href="#">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="employee-infos">
+                        <div class="employee-avatar">
+                            MD
+                        </div>
+                        <div class="employee-coords">
+                            <strong>Marie Dupont</strong>
+                            <span>marie@driblet.com</span>
+                        </div>
+                    </div>
+                </td>
+                <td>Freelance</td>
+                <td>
+                    <a class="button button-edit-team" href="{{ url('team.edit', {id: '3'}) }}">
+                        Éditer
+                    </a>
+                    <a class="delete-team" href="#">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

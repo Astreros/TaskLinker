@@ -5,7 +5,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.12",
-            "ref": "32f890075233ac4a1176e848a0f8e932ac6536d6"
+            "ref": "a952424ca4d5ab4dbc66c8be78236a5f13124112"
         },
         "files": [
             "./config/packages/doctrine.yaml",
@@ -248,6 +248,9 @@
             "./templates/base.html.twig"
         ]
     },
+    "symfony/ux-turbo": {
+        "version": "v2.16.0"
+    },
     "symfony/validator": {
         "version": "7.0",
         "recipe": {
@@ -286,6 +289,6 @@
         ]
     },
     "twig/extra-bundle": {
-        "version": "v3.9.0"
+        "version": "v3.9.3"
     }
 }

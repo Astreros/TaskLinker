@@ -1,2 +1,0 @@
-# TaskLinker
-Mission TaskLinker OpenClassrooms 
