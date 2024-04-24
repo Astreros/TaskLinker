@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProjectController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly ProjectRepository $projectRepository)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly ProjectRepository $projectRepository, private readonly TaskRepository $taskRepository)
     {
     }
 
@@ -43,8 +44,11 @@ class ProjectController extends AbstractController
     #[Route('/project/{id}', name: 'project.show')]
     public function index(int $id): Response
     {
+        $tasks = $this->taskRepository->findByProject($id);
+
         return $this->render('project/index.html.twig', [
             'pageName' => 'Projet ' . $id,
+            'tasks' => $tasks,
         ]);
     }
 

@@ -21,6 +21,18 @@ class TaskRepository extends ServiceEntityRepository
         parent::__construct($registry, Task::class);
     }
 
+    public function findByProjectId($id): array
+    {
+        return $this->createQueryBuilder('task')
+            ->select('task')
+            ->join('task.project', 'project')
+            ->where('project.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return Task[] Returns an array of Task objects
     //     */
