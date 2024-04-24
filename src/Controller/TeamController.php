@@ -45,4 +45,19 @@ class TeamController extends AbstractController
             'formEmployee' => $formEmployee,
         ]);
     }
+
+    #[Route('/team/{id}/delete', name: 'team.delete')]
+    public function deleteTeam(int $id): Response
+    {
+        $employee = $this->employeeRepository->find($id);
+
+        if (!$employee) {
+            return $this->redirectToRoute('team.show');
+        }
+
+        $this->entityManager->remove($employee);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('team.show');
+    }
 }

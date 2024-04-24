@@ -32,7 +32,7 @@
                         <a class="button button-edit-team" href="{{ url('team.edit', {id: employee.id}) }}">
                             Éditer
                         </a>
-                        <a class="delete-team" href="#">
+                        <a class="delete-team" href="{{ url('team.delete', {id: employee.id}) }}">
                             Supprimer
                         </a>
                     </td>
