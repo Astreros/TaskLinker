@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Employee;
 //use App\Entity\Project;
 //use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Project;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -33,11 +35,12 @@ class EmployeeType extends AbstractType
                 'label' => 'Date d\'embauche',
                 'widget' => 'single_text',
             ])
-//            ->add('project', EntityType::class, [
-//                'class' => Project::class,
-//                'choice_label' => 'id',
-//                'multiple' => true,
-//            ])
+            ->add('project', EntityType::class, [
+                'class' => Project::class,
+                'choice_label' => 'title',
+                'choice_value' => 'id',
+                'multiple' => true,
+            ])
         ;
     }
 

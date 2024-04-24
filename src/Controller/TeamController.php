@@ -12,9 +12,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class TeamController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private EmployeeRepository $employeeRepository)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly EmployeeRepository $employeeRepository)
     {
     }
+
     #[Route('/team', name: 'team.show')]
     public function index(): Response
     {
@@ -30,6 +31,11 @@ class TeamController extends AbstractController
     public function editTeam(int $id, Request $request): Response
     {
         $employee = $this->employeeRepository->find($id);
+
+        if (!$employee) {
+            return $this->redirectToRoute('team.show');
+        }
+
         $formEmployee = $this->createForm(EmployeeType::class, $employee);
 
         $formEmployee->handleRequest($request);

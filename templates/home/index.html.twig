@@ -5,24 +5,17 @@
 {% block body %}
     <div id="content">
         <div id="projects-container">
-            <article class="card-project">
-                <a href="{{ url('project.show', {id: '1'}) }}">
-                    <h2>TaskLinker</h2>
-                </a>
-                <div class="card-project-icons">
-                    <a href="{{ url('project.edit', {id: '1'}) }}"><i class="fa-solid fa-pen"></i></a>
-                    <a href="#"><i class="fa-solid fa-trash"></i></a>
-                </div>
-            </article>
-            <article class="card-project">
-                <a href="{{ url('project.show', {id: '2'}) }}">
-                    <h2>Site vitrine Les Soeurs Marchand</h2>
-                </a>
-                <div class="card-project-icons">
-                    <a href="{{ url('project.edit', {id: '2'}) }}"><i class="fa-solid fa-pen"></i></a>
-                    <a href="#"><i class="fa-solid fa-trash"></i></a>
-                </div>
-            </article>
+            {% for project in projects %}
+                <article class="card-project">
+                    <a href="{{ url('project.show', {id: project.id}) }}">
+                        <h2>{{ project.title }}</h2>
+                    </a>
+                    <div class="card-project-icons">
+                        <a href="{{ url('project.edit', {id: project.id}) }}"><i class="fa-solid fa-pen"></i></a>
+                        <a href="{{ url('project.delete', {id: project.id}) }}"><i class="fa-solid fa-trash"></i></a>
+                    </div>
+                </article>
+            {% endfor %}
             <article class="card-project">
                 <a href="{{ url('project.create') }}">
                     <i class="fa-solid fa-circle-plus add-project-icon"></i>
