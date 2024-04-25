@@ -5,19 +5,27 @@
 {% block body %}
     <div id="content">
         <div id="tasks-container">
+{#            {{  }}#}
             <div class="task-column">
                 <h2>To Do</h2>
                 <div class="tasks-list">
-                    <a class="task" href="tache.html">
-                        <h3>Gestion des droits d&#039;accès</h3>
-                        <p>Un employé ne peut accéder qu&#039;à ses projets</p>
-                        <div class="task-infos">
-                            <div class="task-deadline">
-                                <i class="fa-regular fa-calendar"></i> 22/09/2023
-                            </div>
-                        </div>
-                    </a>
-                    <a href="tache-add.html" class="task-add">
+                    {% for task in tasks %}
+                        {% if task.status.id == '1' %}
+                            <a class="task" href="{{ url('task.edit', {id: task.id}) }}">
+                                <h3>{{ task.name }}</h3>
+                                <p>{{ task.description }}</p>
+                                <div class="task-infos">
+                                    <div class="task-deadline">
+                                        <i class="fa-regular fa-calendar"></i>{{ task.startDate|date('d-m-Y') }}
+                                    </div>
+                                    <div class="mini-user">
+                                        {{ task.employee.name|slice(0,1)|capitalize }}{{ task.employee.firstName|slice(0,1)|capitalize }}
+                                    </div>
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    <a href="{{ url('task.create') }}" class="task-add">
                         + Ajouter une tâche
                     </a>
                 </div>
@@ -25,19 +33,23 @@
             <div class="task-column">
                 <h2>Doing</h2>
                 <div class="tasks-list">
-                    <a class="task" href="tache.html">
-                        <h3>Développement de la page employé</h3>
-                        <p>Page employé avec liste des employés, édition, modification, suppression et création des employés</p>
-                        <div class="task-infos">
-                            <div class="task-deadline">
-                                <i class="fa-regular fa-calendar"></i> 14/09/2023
-                            </div>
-                            <div class="mini-user">
-                                DB
-                            </div>
-                        </div>
-                    </a>
-                    <a href="tache-add.html" class="task-add">
+                    {% for task in tasks %}
+                        {% if task.status.id == '2' %}
+                            <a class="task" href="{{ url('task.edit', {id: task.id}) }}">
+                                <h3>{{ task.name }}</h3>
+                                <p>{{ task.description }}</p>
+                                <div class="task-infos">
+                                    <div class="task-deadline">
+                                        <i class="fa-regular fa-calendar"></i>{{ task.startDate|date('d-m-Y') }}
+                                    </div>
+                                    <div class="mini-user">
+                                        {{ task.employee.name|slice(0,1)|capitalize }}{{ task.employee.firstName|slice(0,1)|capitalize }}
+                                    </div>
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    <a href="{{ url('task.create') }}" class="task-add">
                         + Ajouter une tâche
                     </a>
                 </div>
@@ -45,28 +57,23 @@
             <div class="task-column">
                 <h2>Done</h2>
                 <div class="tasks-list">
-                    <a class="task" href="tache.html">
-                        <h3>Développement de la structure globale</h3>
-                        <p>Intégrer les maquettes</p>
-                        <div class="task-infos">
-                            <div class="task-deadline">
-                                <i class="fa-regular fa-calendar"></i> 03/09/2023
-                            </div>
-                            <div class="mini-user">
-                                DB
-                            </div>
-                        </div>
-                    </a>
-                    <a class="task" href="tache.html">
-                        <h3>Développement de la page projet</h3>
-                        <p>Page projet avec liste des tâches, édition, modification, suppression et création des tâches</p>
-                        <div class="task-infos">
-                            <div class="mini-user">
-                                ND
-                            </div>
-                        </div>
-                    </a>
-                    <a href="tache-add.html" class="task-add">
+                    {% for task in tasks %}
+                        {% if task.status.id == '3' %}
+                            <a class="task" href="{{ url('task.edit', {id: task.id}) }}">
+                                <h3>{{ task.name }}</h3>
+                                <p>{{ task.description }}</p>
+                                <div class="task-infos">
+                                    <div class="task-deadline">
+                                        <i class="fa-regular fa-calendar"></i>{{ task.startDate|date('d-m-Y') }}
+                                    </div>
+                                    <div class="mini-user">
+                                        {{ task.employee.name|slice(0,1)|capitalize }}{{ task.employee.firstName|slice(0,1)|capitalize }}
+                                    </div>
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    <a href="{{ url('task.create') }}" class="task-add">
                         + Ajouter une tâche
                     </a>
                 </div>

@@ -26,11 +26,12 @@ class TaskController extends AbstractController
         $formTask->handleRequest($request);
 
         if ($formTask->isSubmitted() && $formTask->isValid()) {
-//            dd($request);
             $this->entityManager->persist($task);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('project.show', ['id' => 1]);
+            $projectId = $task->getProject()->getId();
+
+            return $this->redirectToRoute('project.show', ['id' => $projectId]);
         }
 
         return $this->render('task/create.html.twig', [
@@ -43,15 +44,47 @@ class TaskController extends AbstractController
     public function index(): Response
     {
         return $this->render('task/index.html.twig', [
-            'pageName' => 'Nom du projet',
+            'pageName' => 'Tâche',
         ]);
     }
 
     #[Route('/task/{id}/edit', name: 'task.edit')]
-    public function editTask(int $id): Response
+    public function editTask(int $id, Request $request): Response
     {
+        $task = $this->taskRepository->find($id);
+
+        if (!$task) {
+            return $this->redirectToRoute('project.show', ['id' => $id]);
+        }
+
+        $formTask = $this->createForm(TaskType::class, $task);
+
+        $formTask->handleRequest($request);
+
+        if ($formTask->isSubmitted() && $formTask->isValid()) {
+            $this->entityManager->flush();
+            return $this->redirectToRoute('project.show', ['id' => $id]);
+        }
+
         return $this->render('task/edit.html.twig', [
             'pageName' => 'Modifier la tâche',
+            'formTask' => $formTask,
+            'task' => $task,
         ]);
+    }
+
+    #[Route('/task/{id}/delete', name: 'task.delete')]
+    public function deleteTask(int $id): Response
+    {
+        $task = $this->taskRepository->find($id);
+
+        if (!$task) {
+            return $this->redirectToRoute('home.show');
+        }
+
+        $this->entityManager->remove($task);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('home.show');
     }
 }

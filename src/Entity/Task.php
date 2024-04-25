@@ -30,6 +30,7 @@ class Task
     private ?Status $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
+    #[ORM\JoinColumn(name: 'project_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?Project $project = null;
 
     public function getId(): ?int

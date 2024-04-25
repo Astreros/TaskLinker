@@ -23,15 +23,18 @@ class TaskType extends AbstractType
             ])
             ->add('employee', EntityType::class, [
                 'class' => Employee::class,
-                'choice_label' => 'id',
+                'choice_label' => 'fullName',
+                'choice_value' => 'id'
             ])
             ->add('status', EntityType::class, [
                 'class' => Status::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
+                'choice_value' => 'id'
             ])
             ->add('project', EntityType::class, [
                 'class' => Project::class,
-                'choice_label' => 'id',
+                'choice_label' => 'title',
+                'choice_value' => 'id'
             ])
         ;
     }

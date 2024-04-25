@@ -44,9 +44,9 @@ class ProjectController extends AbstractController
     #[Route('/project/{id}', name: 'project.show')]
     public function index(int $id): Response
     {
-        $tasks = $this->taskRepository->findByProject($id);
+        $tasks = $this->taskRepository->findByProjectId($id);
 
-        return $this->render('project/index.html.twig', [
+        return $this->render('task/index.html.twig', [
             'pageName' => 'Projet ' . $id,
             'tasks' => $tasks,
         ]);
