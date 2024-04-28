@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectType;
+use App\Repository\EmployeeRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,7 +15,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProjectController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly ProjectRepository $projectRepository, private readonly TaskRepository $taskRepository)
+    public function __construct(private readonly EntityManagerInterface $entityManager,
+                                private readonly ProjectRepository $projectRepository,
+                                private readonly TaskRepository $taskRepository,
+                                private readonly EmployeeRepository $employeeRepository,)
     {
     }
 
@@ -27,10 +31,24 @@ class ProjectController extends AbstractController
         $formProject->handleRequest($request);
 
         if ($formProject->isSubmitted() && $formProject->isValid()) {
+
             $project->setStartDate(new \DateTime());
 
             $this->entityManager->persist($project);
             $this->entityManager->flush();
+
+            if ($request->request->all()['project']['employees']) {
+                foreach ($request->request->all()['project']['employees'] as $employeeId) {
+
+                    $employee = $this->employeeRepository->findOneBy(['id' => $employeeId]);
+
+                    if ($employee) {
+                        $employee->addProject($project);
+                        $this->entityManager->persist($employee);
+                        $this->entityManager->flush();
+                    }
+                }
+            }
 
             return $this->redirectToRoute('home.show');
         }
@@ -45,9 +63,14 @@ class ProjectController extends AbstractController
     public function index(int $id): Response
     {
         $tasks = $this->taskRepository->findByProjectId($id);
+        $project = $this->projectRepository->find($id);
+
+        if (!$project) {
+            throw $this->createNotFoundException();
+        }
 
         return $this->render('task/index.html.twig', [
-            'pageName' => 'Projet ' . $id,
+            'pageName' => 'Projet ' . $project->getTitle(),
             'tasks' => $tasks,
         ]);
     }

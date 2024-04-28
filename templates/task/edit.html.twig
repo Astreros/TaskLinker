@@ -9,16 +9,16 @@
             <div>{{ form_row(formTask.description) }}</div>
             <div class="flex-form">
                 <div>{{ form_row(formTask.startDate) }}</div>
-                <div>
-                    {{ form_row(formTask.status) }}
-                </div>
+{#                <div>#}
+{#                    {{ form_row(formTask.status) }}#}
+{#                </div>#}
             </div>
             <div>
                 {{ form_row(formTask.employee) }}
             </div>
-            <div>
-                {{ form_row(formTask.project) }}
-            </div>
+{#            <div>#}
+{#                {{ form_row(formTask.project) }}#}
+{#            </div>#}
             <br>
             <button class="button button-submit">Modifier</button>
             <a href="{{ url('task.delete', {id: task.id}) }}" class="delete-task">Supprimer la tâche</a>

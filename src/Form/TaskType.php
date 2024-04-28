@@ -26,16 +26,16 @@ class TaskType extends AbstractType
                 'choice_label' => 'fullName',
                 'choice_value' => 'id'
             ])
-            ->add('status', EntityType::class, [
-                'class' => Status::class,
-                'choice_label' => 'name',
-                'choice_value' => 'id'
-            ])
-            ->add('project', EntityType::class, [
-                'class' => Project::class,
-                'choice_label' => 'title',
-                'choice_value' => 'id'
-            ])
+//            ->add('status', EntityType::class, [
+//                'class' => Status::class,
+//                'choice_label' => 'name',
+//                'choice_value' => 'id'
+//            ])
+//            ->add('project', EntityType::class, [
+//                'class' => Project::class,
+//                'choice_label' => 'title',
+//                'choice_value' => 'id'
+//            ])
         ;
     }
 
