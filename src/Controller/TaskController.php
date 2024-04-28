@@ -83,7 +83,10 @@ class TaskController extends AbstractController
 
         if ($formTask->isSubmitted() && $formTask->isValid()) {
             $this->entityManager->flush();
-            return $this->redirectToRoute('project.show', ['id' => $id]);
+
+            $projectId = $task->getProject()->getId();
+
+            return $this->redirectToRoute('project.show', ['id' => $projectId]);
         }
 
         return $this->render('task/edit.html.twig', [

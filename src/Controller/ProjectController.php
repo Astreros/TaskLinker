@@ -18,7 +18,7 @@ class ProjectController extends AbstractController
     public function __construct(private readonly EntityManagerInterface $entityManager,
                                 private readonly ProjectRepository $projectRepository,
                                 private readonly TaskRepository $taskRepository,
-                                private readonly EmployeeRepository $employeeRepository,)
+                                private readonly EmployeeRepository $employeeRepository)
     {
     }
 
@@ -55,7 +55,7 @@ class ProjectController extends AbstractController
 
         return $this->render('project/create.html.twig', [
             'pageName' => 'Créer un projet',
-            'formProject' => $formProject,
+            'formProject' => $formProject->createView(),
         ]);
     }
 
@@ -66,7 +66,7 @@ class ProjectController extends AbstractController
         $project = $this->projectRepository->find($id);
 
         if (!$project) {
-            throw $this->createNotFoundException();
+            throw $this->createNotFoundException('Aucun projet trouvé');
         }
 
         return $this->render('task/index.html.twig', [
