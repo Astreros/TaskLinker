@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Employee;
-use App\Entity\Project;
-use App\Entity\Status;
 use App\Entity\Task;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
