@@ -57,7 +57,7 @@ class TaskController extends AbstractController
             $this->entityManager->persist($task);
             $this->entityManager->flush();
 
-            $projectId = $task->getProject()->getId();
+//            $projectId = $task->getProject()->getId();
 
             return $this->redirectToRoute('project.show', ['id' => $projectId]);
         }
@@ -97,8 +97,6 @@ class TaskController extends AbstractController
 
         if ($formTask->isSubmitted() && $formTask->isValid()) {
             $this->entityManager->flush();
-
-            $projectId = $task->getProject()->getId();
 
             return $this->redirectToRoute('project.show', ['id' => $projectId]);
         }
