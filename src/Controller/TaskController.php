@@ -43,7 +43,13 @@ class TaskController extends AbstractController
         $status = $this->statusRepository->findOneBy(['name' => ucfirst($statusName)]);
         $task->setStatus($status);
 
-        $formTask = $this->createForm(TaskType::class, $task);
+        $projectId = $task->getProject()->getId();
+
+        $employees = $this->employeeRepository->findByProject($projectId);
+
+        $formTask = $this->createForm(TaskType::class, $task, [
+            'employees' => $employees,
+        ]);
 
         $formTask->handleRequest($request);
 
@@ -80,12 +86,6 @@ class TaskController extends AbstractController
         }
 
         $projectId = $task->getProject()->getId();
-
-//        dd($project);
-
-//        if (!$project) {
-//            $this->createNotFoundException();
-//        }
 
         $employees = $this->employeeRepository->findByProject($projectId);
 
