@@ -22,7 +22,8 @@ class TaskType extends AbstractType
             ->add('employee', EntityType::class, [
                 'class' => Employee::class,
                 'choice_label' => 'fullName',
-                'choice_value' => 'id'
+                'choice_value' => 'id',
+                'choices' => $options['employees'],
             ])
 //            ->add('status', EntityType::class, [
 //                'class' => Status::class,
@@ -41,6 +42,7 @@ class TaskType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Task::class,
+            'employees' => [],
         ]);
     }
 }

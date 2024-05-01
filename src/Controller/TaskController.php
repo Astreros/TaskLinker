@@ -6,6 +6,7 @@ use App\Entity\Project;
 use App\Entity\Status;
 use App\Entity\Task;
 use App\Form\TaskType;
+use App\Repository\EmployeeRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\StatusRepository;
 use App\Repository\TaskRepository;
@@ -18,9 +19,10 @@ use Symfony\Component\Routing\Attribute\Route;
 class TaskController extends AbstractController
 {
     public function __construct(private readonly EntityManagerInterface $entityManager,
-                                private readonly TaskRepository $taskRepository,
-                                private readonly StatusRepository $statusRepository,
-                                private readonly ProjectRepository $projectRepository)
+                                private readonly TaskRepository         $taskRepository,
+                                private readonly StatusRepository       $statusRepository,
+                                private readonly ProjectRepository      $projectRepository,
+                                private readonly EmployeeRepository $employeeRepository)
     {
     }
 
@@ -77,7 +79,19 @@ class TaskController extends AbstractController
             return $this->redirectToRoute('project.show', ['id' => $id]);
         }
 
-        $formTask = $this->createForm(TaskType::class, $task);
+        $projectId = $task->getProject()->getId();
+
+//        dd($project);
+
+//        if (!$project) {
+//            $this->createNotFoundException();
+//        }
+
+        $employees = $this->employeeRepository->findByProject($projectId);
+
+        $formTask = $this->createForm(TaskType::class, $task, [
+            'employees' => $employees,
+        ]);
 
         $formTask->handleRequest($request);
 
