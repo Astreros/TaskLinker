@@ -27,6 +27,7 @@ class ProjectType extends AbstractType
                 'choice_label' => 'fullName',
                 'choice_value' => 'id',
                 'multiple' => true,
+                'by_reference' => false,
             ])
         ;
     }

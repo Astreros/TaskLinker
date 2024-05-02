@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Employee;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\EmployeeRepository;
@@ -89,6 +90,20 @@ class ProjectController extends AbstractController
         $formProject->handleRequest($request);
 
         if ($formProject->isSubmitted() && $formProject->isValid()) {
+
+            foreach ($project->getEmployees() as $employee) {
+                $project->removeEmployee($employee);
+                $employee->removeProject($project);
+            }
+
+            $selectedEmployees = $formProject->get('employees')->getData();
+
+            foreach ($selectedEmployees as $employee) {
+                $project->addEmployee($employee);
+                $employee->addProject($project);
+            }
+
+            $this->entityManager->persist($project);
             $this->entityManager->flush();
             return $this->redirectToRoute('project.show', ['id' => $id]);
         }
