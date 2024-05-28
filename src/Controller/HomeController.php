@@ -16,6 +16,12 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home.show')]
     public function index(): Response
     {
+        if (!isset($_SESSION['user'])) {
+            return $this->render('home/welcome.html.twig', [
+                'pageName' => 'Bienvenue'
+            ]);
+        }
+
         $projects = $this->projectRepository->findAll();
 
         return $this->render('home/index.html.twig', [
@@ -23,4 +29,5 @@ class HomeController extends AbstractController
             'projects' => $projects,
         ]);
     }
+
 }
