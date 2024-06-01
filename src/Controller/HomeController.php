@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class HomeController extends AbstractController
 {
@@ -18,10 +17,21 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'home.show')]
-    #[IsGranted('ROLE_USER')]
     public function index(EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
     {
         if (!isset($_SESSION['user'])) {
+
+//            $user = new Employee();
+//            $user->setEmail('pierre.durand@example.com')
+//                ->setName('Durand')
+//                ->setFirstName('Pierre')
+//                ->setJoiningDate(new \DateTime('now'))
+//                ->setRoles([])
+//                ->setContractType('CDI')
+//                ->setPassword($hasher->hashPassword($user, '0000'));
+
+//            $entityManager->persist($user);
+//            $entityManager->flush();
 
             return $this->render('home/welcome.html.twig', [
                 'pageName' => 'Bienvenue'
