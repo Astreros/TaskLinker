@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Employee;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\EmployeeRepository;

@@ -4,4 +4,18 @@
 
 {% block body %}
     <h1>S'inscrire</h1>
+
+    {{ form_start(formRegistration) }}
+
+    {{ form_row(formRegistration.name) }}
+    {{ form_row(formRegistration.firstName) }}
+    {{ form_row(formRegistration.email) }}
+    <div class="form-flex">
+        {{ form_row(formRegistration.password.first) }}
+        {{ form_row(formRegistration.password.second) }}
+    </div>
+    <button class="button button-submit">Continuer</button>
+    <a href="{{ path('app_login') }}" class="link-logout">Vous avez déjà un compte ?</a>
+
+    {{ form_end(formRegistration) }}
 {% endblock %}
