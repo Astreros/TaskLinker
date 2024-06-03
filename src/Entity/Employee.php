@@ -225,4 +225,16 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return (string) $this->email;
     }
+
+    public function isAdmin(): bool
+    {
+        return in_array('ROLE_ADMIN', $this->roles, true);
+    }
+
+    public function setAdmin(bool $admin): static
+    {
+        $this->roles = $admin ? ['ROLE_ADMIN'] : [];
+
+        return $this;
+    }
 }

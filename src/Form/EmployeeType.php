@@ -8,6 +8,7 @@ use App\Entity\Employee;
 use App\Entity\Project;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,6 +35,13 @@ class EmployeeType extends AbstractType
             ->add('joiningDate', DateType::class, [
                 'label' => 'Date d\'embauche',
                 'widget' => 'single_text',
+            ])
+            ->add('admin', ChoiceType::class, [
+                'label' => 'Rôle',
+                'choices' => [
+                    'Collaborateur' => false,
+                    'Chef de projet' => true,
+                ],
             ])
             ->add('project', EntityType::class, [
                 'class' => Project::class,
