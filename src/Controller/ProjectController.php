@@ -62,6 +62,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/project/{id}', name: 'project.show')]
+    #[IsGranted('PROJECT_ACCESS', 'id')]
     public function index(int $id): Response
     {
         $tasks = $this->taskRepository->findByProjectId($id);

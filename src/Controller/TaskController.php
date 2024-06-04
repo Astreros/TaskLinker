@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Project;
-use App\Entity\Status;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\EmployeeRepository;
@@ -15,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class TaskController extends AbstractController
 {
@@ -22,11 +21,12 @@ class TaskController extends AbstractController
                                 private readonly TaskRepository         $taskRepository,
                                 private readonly StatusRepository       $statusRepository,
                                 private readonly ProjectRepository      $projectRepository,
-                                private readonly EmployeeRepository $employeeRepository)
+                                private readonly EmployeeRepository     $employeeRepository)
     {
     }
 
     #[Route('/tasks/{id}/create', name: 'task.create')]
+    #[IsGranted('PROJECT_ACCESS', 'id')]
     public function addTask($id, Request $request): Response
     {
         $project = $this->projectRepository->find($id);
@@ -69,6 +69,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/task', name: 'task.show')]
+    #[IsGranted('TASK_ACCESS', 'id')]
     public function index(): Response
     {
         return $this->render('task/index.html.twig', [
@@ -77,6 +78,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/task/{id}/edit', name: 'task.edit')]
+    #[IsGranted('TASK_ACCESS', 'id')]
     public function editTask(int $id, Request $request): Response
     {
         $task = $this->taskRepository->find($id);
@@ -109,6 +111,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/task/{id}/delete', name: 'task.delete')]
+    #[IsGranted('TASK_ACCESS', 'id')]
     public function deleteTask(int $id): Response
     {
         $task = $this->taskRepository->find($id);
