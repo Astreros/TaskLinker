@@ -21,7 +21,18 @@ class HomeController extends AbstractController
     {
         if ($this->isGranted('ROLE_USER')) {
 
-            $projects = $this->projectRepository->findAll();
+            $projects = null;
+
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $projects = $this->projectRepository->findAll();
+
+            } else {
+                $user = $this->getUser();
+
+                if ($user instanceof Employee) {
+                    $projects = $user->getProject();
+                }
+            }
 
             return $this->render('home/index.html.twig', [
                 'pageName' => 'Projets',
@@ -33,5 +44,4 @@ class HomeController extends AbstractController
             'pageName' => 'Bienvenue'
         ]);
     }
-
 }

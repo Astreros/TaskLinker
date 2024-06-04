@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProjectController extends AbstractController
 {
@@ -23,6 +24,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/project/create', name: 'project.create')]
+    #[IsGranted('ROLE_ADMIN')]
     public function addProject(Request $request): Response
     {
         $project = new Project();
@@ -76,6 +78,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/project/{id}/edit', name: 'project.edit')]
+    #[IsGranted('ROLE_ADMIN')]
     public function editProject(int $id, Request $request): Response
     {
         $project = $this->projectRepository->find($id);
@@ -114,6 +117,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/project/{id}/delete', name: 'project.delete')]
+    #[IsGranted('ROLE_ADMIN')]
     public function deleteProject(int $id): Response
     {
         $project = $this->projectRepository->find($id);

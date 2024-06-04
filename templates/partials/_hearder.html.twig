@@ -1,5 +1,11 @@
 <header>
-    <div id="current-user"></div>
+    <div id="current-user">
+        {% if app.user %}
+            <a href="{{ path('app_logout') }}" class="avatar">
+                {{ app.user.firstName | first }}{{ app.user.name | first }}
+            </a>
+        {% endif %}
+    </div>
     <div id="title-page">
         <h1>{% block title %}{{ pageName }}{% endblock %}</h1>
     </div>
